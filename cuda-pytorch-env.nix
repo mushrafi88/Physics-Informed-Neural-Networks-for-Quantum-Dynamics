@@ -45,6 +45,7 @@ let
         if micromamba list -n pytorch > /dev/null 2>&1; then
             echo "Activating existing 'pytorch' environment."
             micromamba activate pytorch
+            jupyter lab
         else
             echo "Creating new 'pytorch' environment."
             micromamba create --yes -q -n pytorch
@@ -52,6 +53,7 @@ let
             micromamba install pytorch torchvision torchaudio pytorch-cuda=11.8 jupyter -c pytorch -c nvidia -c conda-forge
             micromamba install -c conda-forge ipympl
             pip install matplotlib pandas seaborn scikit-learn tqdm 
+            jupyter lab
         fi
         set +e
     '';
