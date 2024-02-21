@@ -51,18 +51,7 @@ Addresses the non-linear Schrödinger equation with periodic boundary conditions
 $$
 i \frac{\partial \psi}{\partial t} + \frac{1}{2} \frac{\partial^2 \psi}{\partial x^2} + |\psi|^2 \psi = 0, \quad x \in [-5, 5], \quad t \in [0, \frac{\pi}{2}],
 $$
-and the boundary conditions are given by
-$$
-\psi(x,0) = 2 \, \text{sech}(x),
-$$
 
-$$
-\psi(-5,t) = \psi(5,t),
-$$
-
-$$
-\left. \frac{\partial \psi(x,t)}{\partial x} \right|_{-5,t} = \left. \frac{\partial \psi(x,t)}{\partial x} \right|_{5,t}
-$$
 
 ## Installation
 
