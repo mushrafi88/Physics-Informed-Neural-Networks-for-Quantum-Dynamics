@@ -10,9 +10,6 @@ This repository contains implementations of Physics-Informed Neural Networks (PI
 - [Symmetric Infinite Potential Well](#symmetric-infinite-potential-well)
 - [Non-linear Schrödinger Equation](#non-linear-schrödinger-equation)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 - [Acknowledgments](#acknowledgments)
 
 ## 1D Harmonic Oscillator
