@@ -19,9 +19,9 @@ This repository contains implementations of Physics-Informed Neural Networks (PI
 
 The 1D damped harmonic oscillator is described by the differential equation:
 
-\[m \dfrac{d^2 x}{d t^2} + \mu \dfrac{d x}{d t} + kx = 0\]
+$$m \dfrac{d^2 x}{d t^2} + \mu \dfrac{d x}{d t} + kx = 0$$
 
-with initial conditions \(x(0) = 1\), \(\dfrac{d x}{d t}(0) = 0\). We focus on solving for the under-damped state (\(\delta < \omega_0\)).
+with initial conditions $x(0) = 1$, $\dfrac{d x}{d t}(0) = 0$. We focus on solving for the under-damped state ($\delta < \omega_0$).
 
 Original code inspired by [benmoseley](https://github.com/benmoseley/harmonic-oscillator-pinn).
 
@@ -29,17 +29,17 @@ Original code inspired by [benmoseley](https://github.com/benmoseley/harmonic-os
 
 Solves the quantum harmonic oscillator problem, given by the Hamiltonian:
 
-\[\hat{H} = \frac{\hat{p}^2}{2m} + \frac{1}{2}m\omega^2\hat{x}^2\]
+$$\hat{H} = \frac{\hat{p}^2}{2m} + \frac{1}{2}m\omega^2\hat{x}^2$$
 
-and the corresponding Schrödinger equation. The solution involves the eigenfunctions \(\psi_n(x)\) expressed in terms of Hermite polynomials \(H_n\).
+and the corresponding Schrödinger equation. The solution involves the eigenfunctions $\psi_n(x)$ expressed in terms of Hermite polynomials $H_n$.
 
 ## 2-D PDE Example
 
 A simple 2-D PDE problem:
 
-\[\frac{du}{dx} = 2 \frac{du}{dt} + u\]
+$$\frac{du}{dx} = 2 \frac{du}{dt} + u$$
 
-with boundary condition \(u(x,0) = 6e^{-3x}\). The analytical solution is \(u(x,t) = 6e^{-3x-2t}\).
+with boundary condition $u(x,0) = 6e^{-3x}$. The analytical solution is $u(x,t) = 6e^{-3x-2t}$.
 
 Original code by [nanditadoloi](https://github.com/nanditadoloi/PINN/tree/main).
 
@@ -61,34 +61,18 @@ To set up your environment to run these examples, you will need Python 3 and the
 Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/mushrafi88/Physics-Informed-Neural-Networks-for-Quantum-Dynamics.git
 ```
 
-Install the required Python packages:
+Install the required Python packages. For nix users use the following directly to setup the environment with cuda enabled.
 
-```bash
-pip install -r requirements.txt
 ```
-
-## Usage
-
-To run a specific example, navigate to the corresponding file and execute it with Python. For instance:
-
-```bash
-python Harmonic_oscillators_PINN.py
+nix-shell cuda-pytorch-env.nix
 ```
-
-## Contributing
-
-Contributions to this project are welcome. Please refer to the contributing guidelines for more information.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
 
-- Original PINN methodology by [Raissi et al.](https://www.sciencedirect.com/science/article/pii/S0021999118307125)
+- Original PINN methodology by [Raissi et al.](https://www.sciencedirect.com/science/article/abs/pii/S0021999118307125)
 - Example implementations inspired by contributions from [benmoseley](https://github.com/benmoseley/harmonic-oscillator-pinn) and [nanditadoloi](https://github.com/nanditadoloi/PINN/tree/main).
 
 
