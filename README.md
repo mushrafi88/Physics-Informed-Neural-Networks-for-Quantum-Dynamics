@@ -66,10 +66,16 @@ Clone the repository:
 git clone https://github.com/mushrafi88/Physics-Informed-Neural-Networks-for-Quantum-Dynamics.git
 ```
 
-Install the required Python packages. For nix users use the following directly to setup the environment with cuda enabled.
+Install the required Python packages. For nixos users use the following directly to setup the environment with cuda enabled.
 
 ```
 nix-shell cuda-pytorch-env.nix
+```
+For nixpkgs users use the following 
+```bash
+git clone https://github.com/mushrafi88/Physics-Informed-Neural-Networks-for-Quantum-Dynamics.git
+cd Physics-Informed-Neural-Networks-for-Quantum-Dynamics 
+NIXPKGS_ALLOW_UNFREE=1 nix develop --impure
 ```
 
 ## Acknowledgments
