@@ -70,7 +70,8 @@
             micromamba activate pytorch
             micromamba install pytorch torchvision torchaudio pytorch-cuda=11.8 jupyter -c pytorch -c nvidia -c conda-forge
             micromamba install -c conda-forge ipympl
-            pip install matplotlib pandas seaborn scikit-learn tqdm 
+            micromamba install -c conda-forge jupyter-ai
+            pip install matplotlib pandas seaborn scikit-learn tqdm catppuccin-jupyterlab 
             jupyter lab
           fi
         '';
