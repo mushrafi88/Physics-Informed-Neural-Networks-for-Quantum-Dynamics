@@ -68,8 +68,8 @@ $$
 
 Here we try to solve the famous lotka Lotka-Voltera equation or more commonly known as the predator prey model 
 
-$$ \frac{dx}{dt} = \alpha x - \beta x y $$
-$$ \frac{dy}{dt} = \delta x y - \gamma y $$
+$$\frac{dx}{dt} = \alpha x - \beta x y$$
+$$\frac{dy}{dt} = \delta x y - \gamma y$$
 
 we consider the following set of constants (normalized)
 
