@@ -70,17 +70,8 @@ $$ \frac{dx}{dt} = \alpha x - \beta x y$$
 $$ \frac{dy}{dt} = \delta x y - \gamma y $$
 
 we consider the following set of constants (normalized)
-$$ \alpha = 40 $$
-$$ \beta = 160 $$
-$$ \delta = 80 $$ 
-$$ \gamma = 21.2 $$
-and the initial condition to align with the demo (max population 200)
-$$
-x(0) = \frac{100}{200}
-$$
-$$
-y(0) = \frac{15}{200} 
-$$
+$ \alpha = 40, \beta = 160, \delta = 80, \gamma = 21.2 $
+and the initial condition to align with the demo (max population 200) $ x(0) = \frac{100}{200}, y(0) = \frac{15}{200} $
 Solution online [geogebra](https://www.geogebra.org/m/ztcqv8gb)
 
 ## Installation
