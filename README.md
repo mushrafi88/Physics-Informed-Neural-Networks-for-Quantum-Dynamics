@@ -9,6 +9,8 @@ This repository contains implementations of Physics-Informed Neural Networks (PI
 - [2-D PDE Example](#2-d-pde-example)
 - [Symmetric Infinite Potential Well](#symmetric-infinite-potential-well)
 - [Non-linear Schrödinger Equation](#non-linear-schrödinger-equation)
+- [Coupled Spring system](#coupled_spring-equation)
+- [Lotka-Voltera Equation](#lotka-voltera-equation)
 - [Installation](#installation)
 - [Acknowledgments](#acknowledgments)
 
@@ -52,6 +54,34 @@ $$
 i \frac{\partial \psi}{\partial t} + \frac{1}{2} \frac{\partial^2 \psi}{\partial x^2} + |\psi|^2 \psi = 0, \quad x \in [-5, 5], \quad t \in [0, \frac{\pi}{2}],
 $$
 
+## Coupled Spring system 
+
+Here we try to solve the spring that has the lagrangian 
+
+$$
+L = \frac{1}{2} m_1 \frac{d^2x_1}{dt^2} + \frac{1}{2} m_2 \frac{d^2x_2}{dt^2} - \frac{1}{2}\left(k_l x_1^2 + k_r x_2^2 + k_m (x_1 - x_2)^2\right)
+$$
+
+## Lotka-Voltera Equation 
+
+Here we try to solve the famous lotka Lotka-Voltera equation or more commonly known as the predator prey model 
+
+$$ \frac{dx}{dt} = \alpha x - \beta x y$$
+$$ \frac{dy}{dt} = \delta x y - \gamma y $$
+
+we consider the following set of constants (normalized)
+$$ \alpha = 40 $$
+$$ \beta = 160 $$
+$$ \delta = 80 $$ 
+$$ \gamma = 21.2 $$
+and the initial condition to align with the demo (max population 200)
+$$
+x(0) = \frac{100}{200}
+$$
+$$
+y(0) = \frac{15}{200} 
+$$
+Solution online [geogebra](https://www.geogebra.org/m/ztcqv8gb)
 
 ## Installation
 
