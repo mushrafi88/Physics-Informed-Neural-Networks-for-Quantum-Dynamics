@@ -64,19 +64,27 @@ $$
 
 ![Alt text for the GIF](results/cde_pinn.gif)
 
-## Lotka-Voltera Equation 
+## Lotka-Volterra Equation
 
-Here we try to solve the famous lotka Lotka-Voltera equation or more commonly known as the predator prey model 
+The Lotka-Volterra equations, also known as the predator-prey model, are represented as a system of first-order nonlinear differential equations:
 
-$$\frac{dx}{dt} = \alpha x - \beta x y$$
-and 
-$$\frac{dy}{dt} = \delta x y - \gamma y$$
+$$
+\begin{cases}
+\frac{dx}{dt} = \alpha x - \beta x y, \\
+\frac{dy}{dt} = \delta x y - \gamma y,
+\end{cases}
+$$
 
-we consider the following set of constants (normalized)
+where
+- $x$ represents the prey population,
+- $y$ represents the predator population,
+- $\alpha$ is the natural growth rate of prey in the absence of predators,
+- $\beta$ is the natural dying rate of prey due to predation,
+- $\delta$ is the efficiency of converting consumed prey into predator population, and
+- $\gamma$ is the natural dying rate of predators in the absence of prey.
 
-$\alpha = 40, \beta = 160, \delta = 80, \gamma = 21.2$
-and the initial condition to align with the demo (max population 200) $x(0) = \frac{100}{200}, y(0) = \frac{15}{200}$
-Solution online [geogebra](https://www.geogebra.org/m/ztcqv8gb)
+The constants are normalized for this demonstration with $\alpha = 40$, $\beta = 160$, $\delta = 80$, $\gamma = 21.2$, and the initial condition set to align with the demo (max population 200) as $x(0) = \frac{100}{200}$, $y(0) = \frac{15}{200}$. A solution visualization is available online at [geogebra](https://www.geogebra.org/m/ztcqv8gb).
+
 
 ## Installation
 
