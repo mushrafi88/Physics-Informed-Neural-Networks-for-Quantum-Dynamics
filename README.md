@@ -66,32 +66,17 @@ $$
 
 Here we try to solve the famous lotka Lotka-Voltera equation or more commonly known as the predator prey model 
 
-$$ \frac{dx}{dt} = \alpha x - \beta x y$$
+$$ \frac{dx}{dt} = \alpha x - \beta x y $$
 $$ \frac{dy}{dt} = \delta x y - \gamma y $$
 
 we consider the following set of constants (normalized)
-$ \alpha = 40, \beta = 160, \delta = 80, \gamma = 21.2 $
-and the initial condition to align with the demo (max population 200) $ x(0) = \frac{100}{200}, y(0) = \frac{15}{200} $
+
+$\alpha = 40, \beta = 160, \delta = 80, \gamma = 21.2$
+and the initial condition to align with the demo (max population 200) $x(0) = \frac{100}{200}, y(0) = \frac{15}{200}$
 Solution online [geogebra](https://www.geogebra.org/m/ztcqv8gb)
 
 ## Installation
 
-To set up your environment to run these examples, you will need Python 3 and the following libraries:
-- NumPy
-- PyTorch
-- Matplotlib
-
-Clone the repository:
-
-```bash
-git clone https://github.com/mushrafi88/Physics-Informed-Neural-Networks-for-Quantum-Dynamics.git
-```
-
-Install the required Python packages. For nixos users use the following directly to setup the environment with cuda enabled.
-
-```
-nix-shell cuda-pytorch-env.nix
-```
 For nixpkgs users use the following 
 ```bash
 git clone https://github.com/mushrafi88/Physics-Informed-Neural-Networks-for-Quantum-Dynamics.git
