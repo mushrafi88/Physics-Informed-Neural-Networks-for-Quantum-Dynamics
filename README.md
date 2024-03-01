@@ -62,6 +62,8 @@ $$
 L = \frac{1}{2} m_1 \frac{d^2x_1}{dt^2} + \frac{1}{2} m_2 \frac{d^2x_2}{dt^2} - \frac{1}{2}\left(k_l x_1^2 + k_r x_2^2 + k_m (x_1 - x_2)^2\right)
 $$
 
+![Alt text for the GIF](results/cde_pinn.gif)
+
 ## Lotka-Voltera Equation 
 
 Here we try to solve the famous lotka Lotka-Voltera equation or more commonly known as the predator prey model 
