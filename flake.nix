@@ -63,7 +63,6 @@
           if micromamba list -n pytorch > /dev/null 2>&1; then
             echo "Activating existing 'pytorch' environment."
             micromamba activate pytorch
-            pip install neurodiffeq
             jupyter lab
           else
             echo "Creating new 'pytorch' environment."
