@@ -62,14 +62,15 @@
           eval "$(micromamba shell hook --shell=bash | sed 's/complete / # complete/g')"
           if micromamba list -n pytorch > /dev/null 2>&1; then
             echo "Activating existing 'pytorch' environment."
-            micromamba activate pytorch 
+            micromamba activate pytorch
+            pip install neurodiffeq
             jupyter lab
           else
             echo "Creating new 'pytorch' environment."
             micromamba create --yes -q -n pytorch
             micromamba activate pytorch
             micromamba install pytorch torchvision torchaudio pytorch-cuda=11.8 jupyter ipympl deepxde -c pytorch -c nvidia -c conda-forge
-            pip install matplotlib pandas seaborn scikit-learn tqdm catppuccin-jupyterlab 
+            pip install matplotlib pandas seaborn scikit-learn tqdm catppuccin-jupyterlab neurodiffeq 
             jupyter lab
           fi
         '';
