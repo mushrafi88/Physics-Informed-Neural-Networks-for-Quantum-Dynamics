@@ -2,3 +2,4 @@
 **/.mamba/
 **/.stfolder
 model_weights_testing_CHIGGS
+model_weights_testing_CHIGGS_fourier
