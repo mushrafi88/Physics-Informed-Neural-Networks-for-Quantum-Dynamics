@@ -11,6 +11,7 @@ This repository contains implementations of Physics-Informed Neural Networks (PI
 - [Non-linear Schrödinger Equation](#non-linear-schrödinger-equation)
 - [Coupled Spring system](#coupled_spring-equation)
 - [Lotka-Voltera Equation](#lotka-voltera-equation)
+- [Coupled Higgs Equation](#coupled-higgs-equation)
 - [Installation](#installation)
 - [Acknowledgments](#acknowledgments)
 
@@ -85,6 +86,37 @@ where
 
 The constants are normalized for this demonstration with $\alpha = 40$, $\beta = 160$, $\delta = 80$, $\gamma = 21.2$, and the initial condition set to align with the demo (max population 200) as $x(0) = \frac{100}{200}$, $y(0) = \frac{15}{200}$. A solution visualization is available online at [geogebra](https://www.geogebra.org/m/ztcqv8gb).
 
+## Coupled Higgs Equation
+
+$$
+u_{tt} - u_{xx} + |u|^2 u - 2uv = 0
+$$
+$$
+v_{tt} + v_{xx} - (\left| u \right|^2)_{xx} = 0
+$$
+
+where, $ u(x,t) $ represents a complex nucleon field and $ v(x,t) $ represents a real scalar meson field. The coupled Higgs field Equation describes a system of conserved scalar nucleon interaction with a neutral scalar meson.
+
+solutions 
+
+$$
+u_1(x, t) = ir e^{ir(\omega x + t)} \sqrt{1 + \omega^2} \tanh\left(\frac{r(k + x + \omega t)}{\sqrt{2}}\right)
+$$
+$$
+v_1(x, t) = r^2 \tanh^2\left(\frac{r(k + x + \omega t)}{\sqrt{2}}\right)
+$$
+
+for $t = 0$
+
+$$
+u_1(x, 0) = ir e^{ir \omega x} \sqrt{1 + \omega^2} \tanh\left(\frac{r(k + x)}{\sqrt{2}}\right)
+$$
+$$
+v_1(x, 0) = r^2 \tanh^2\left(\frac{r(k + x)}{\sqrt{2}}\right)
+$$
+
+where 
+$k = 0.5, \omega = 3 , \alpha = 2, c = 2, r = 1.1$
 
 ## Installation
 
