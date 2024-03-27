@@ -91,11 +91,12 @@ The constants are normalized for this demonstration with $\alpha = 40$, $\beta =
 $$
 u_{tt} - u_{xx} + |u|^2 u - 2uv = 0
 $$
+
 $$
 v_{tt} + v_{xx} - (\left| u \right|^2)_{xx} = 0
 $$
 
-where, $ u(x,t) $ represents a complex nucleon field and $ v(x,t) $ represents a real scalar meson field. The coupled Higgs field Equation describes a system of conserved scalar nucleon interaction with a neutral scalar meson.
+where, $u(x,t)$ represents a complex nucleon field and $v(x,t)$ represents a real scalar meson field. The coupled Higgs field Equation describes a system of conserved scalar nucleon interaction with a neutral scalar meson.
 
 solutions 
 
