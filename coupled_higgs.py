@@ -6,8 +6,19 @@ from tqdm import tqdm
 import numpy as np
 import os
 import pandas as pd
+from itertools import cycle
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+def fourier_features(x, B):
+    x_transformed = torch.matmul(x, B)
+    return torch.cat([torch.sin(x_transformed), torch.cos(x_transformed) ], dim=-1)
+
+def init_fixed_frequency_matrix(size, scale=1.0):
+    num_elements = size[0] * size[1]
+    lin_space = torch.linspace(-scale, scale, steps=num_elements)
+    B = lin_space.view(size).float()
+    return B
 
 def fourier_features(x, B):
     x_transformed = torch.matmul(x, B)
@@ -72,8 +83,8 @@ class FourierFeatureNN(nn.Module):
         
         return output_1, output_2, output_3
 
-def grad(y, x):
-    return torch.autograd.grad(y, x, grad_outputs=torch.ones_like(y), create_graph=True)[0]
+def grad(x, t):
+    return torch.autograd.grad(x, t, grad_outputs=torch.ones_like(x), create_graph=True)[0]
 
 def laplacian(field, x, t):
     field_x = grad(field, x)
@@ -92,11 +103,11 @@ def coupled_higgs(u_real, u_imag, v, x, t, beta):
     u_abs_xx, u_abs_tt = laplacian(u_abs, x, t)
 
     # Calculate the field equations
-    du_eq_r = u_r_tt - u_r_xx + u_abs * u_real - 2 * u_real * v
-    du_eq_i = u_i_tt - u_i_xx + u_abs * u_imag - 2 * u_imag * v
-    dv_eq = v_tt + v_xx - beta*u_abs_xx
+    du_r = u_r_tt - u_r_xx + u_abs * u_real - 2 * u_real * v
+    du_i = u_i_tt - u_i_xx + u_abs * u_imag - 2 * u_imag * v
+    dv = v_tt + v_xx - beta*u_abs_xx
     
-    return du_eq_r, du_eq_i, dv_eq
+    return du_r, du_i, dv
 
 def real_u1(x, t, k, omega, r):
     complex_exp = torch.exp(1j * r * (omega * x + t))
@@ -148,6 +159,7 @@ def compute_physics_loss(model, x, t, beta, mse_cost_function):
     # Return the scalar loss values for real part, imaginary part, and v
     return loss_r, loss_i, loss_v
 
+
 # Check if CUDA is available and set the default device
 if torch.cuda.is_available():
     print("CUDA is available! Training on GPU.")
@@ -155,24 +167,28 @@ else:
     print("CUDA is not available. Training on CPU.")
 
 model = FourierFeatureNN(input_dim=1, shared_units=128, output_dim=3, layers_per_path=2, scale=1.0, 
-                         activation=nn.Tanh, path_neurons=[128, 128, 64, 64], ffn_neurons=[64, 32, 16], device=device).to(device)
+                         activation=nn.Tanh, path_neurons=[128, 128, 128, 128], ffn_neurons=[128, 128, 128], device=device).to(device)
 
-num_epochs = 20000  # Number of training epochs
+num_epochs = 24000  # Number of training epochs
 lr = 1e-4          # Learning rate
-num_samples = 1000 # Number of samples for training
+num_samples = 1000*4 # Number of samples for training
 r = 1.1
-omega = 3
+omega = 3 
 k = 0.5
 lambda_ = 1e-3
+gamma = 1e-3
 beta = 1
-
+temp_x = [-2,-1,0,1]
+temp_y = cycle(temp_x)
+def cycler():
+    return next(temp_y)
 #epoch = 5434
 model_save_path = 'model_weights_fourier_single_improved'
-#model_state = torch.load(os.path.join(model_save_path, f'C_HIGGS_epoch_{epoch}.pth'), map_location=device)
+model_state = torch.load(os.path.join(model_save_path, f'C_HIGGS_omega_{omega}.pth'), map_location=device)
 #model = FourierFeatureNN(input_dim=1, shared_units=128, output_dim=3, layers_per_path=2, scale=1.0, 
 #                         activation=nn.Tanh, path_neurons=[128, 128, 64, 64], ffn_neurons=[64, 32, 16], device=device).to(device)
-#model.load_state_dict(model_state)
-#model.train()
+model.load_state_dict(model_state)
+model.train()
 optimizer = AdamW(model.parameters(), lr=lr, betas=(0.9, 0.999), eps=1e-08, weight_decay=1e-5)
 mse_cost_function = torch.nn.MSELoss()
 os.makedirs(model_save_path, exist_ok=True)
@@ -182,16 +198,8 @@ print('\n##################### model  #################\n')
 print(model)
 
 # Training loop
-x_bc_x0 = torch.zeros((num_samples, 1)).to(device)
-t_bc_x0 = torch.rand((num_samples, 1)).to(device)  # Uniformly distributed random values between 0 and 1
-x_bc_x1 = torch.ones((num_samples, 1)).to(device)
-t_bc_x1 = torch.rand((num_samples, 1)).to(device)  # Uniformly distributed random values between 0 and 1
-x_bc_t0 = torch.rand((num_samples, 1)).to(device)  # Uniformly distributed random values between 0 and 1
-t_bc_t0 = torch.zeros((num_samples, 1)).to(device)
-x_bc_t1 = torch.rand((num_samples, 1)).to(device)  # Uniformly distributed random values between 0 and 1
-t_bc_t1 = torch.ones((num_samples, 1)).to(device)
-
-
+#factor = cycler()
+factor = -2
 for epoch in tqdm(range(num_epochs),
                   desc='Progress:',  # Empty description
                   leave=False,  # Do not leave the progress bar when done
@@ -199,24 +207,32 @@ for epoch in tqdm(range(num_epochs),
                   mininterval=0.1,
                   bar_format='{l_bar}{bar}|{remaining}',  # Only show the bar without any counters
                   colour='blue'): 
-    x_n = (torch.rand(num_samples, 1)).to(device)  # x in range [-5, -3]
+    #if epoch % 3000 == 0: 
+        #factor = cycler()
+    x_n = (torch.rand(num_samples, 1)*4 + factor ).to(device)  # x in range [-5, -3]
     t_n = (torch.rand(num_samples, 1)).to(device)   
-    x_dom = torch.rand((num_samples, 1)).to(device)
-    t_dom = torch.rand((num_samples, 1)).to(device) 
-   
+    x_dom = (torch.rand(num_samples, 1)*4 + factor ).to(device)
+    t_dom = torch.rand(num_samples, 1).to(device) 
+    x_bc_x0 = (torch.zeros(num_samples, 1)*4 + factor ).to(device)
+    t_bc_x0 = torch.rand(num_samples, 1).to(device)  # Uniformly distributed random values between 0 and 1
+    x_bc_x1 = (torch.zeros(num_samples, 1)*4 - factor ).to(device)
+    t_bc_x1 = torch.rand(num_samples, 1).to(device)  # Uniformly distributed random values between 0 and 1
+    x_bc_t0 = (torch.rand(num_samples, 1)*4 + factor ).to(device)  # Uniformly distributed random values between 0 and 1
+    t_bc_t0 = torch.zeros(num_samples, 1).to(device)
+
     optimizer.zero_grad()
 
     physics_loss_ur, physics_loss_ui, physics_loss_v = compute_physics_loss(model, x_n, t_n, beta, mse_cost_function)
     boundary_loss_ur_x0, boundary_loss_ui_x0, boundary_loss_v_x0 = compute_analytical_boundary_loss(model, x_bc_x0, t_bc_x0, mse_cost_function, k, omega, r)
     boundary_loss_ur_x1, boundary_loss_ui_x1, boundary_loss_v_x1 = compute_analytical_boundary_loss(model, x_bc_x1, t_bc_x1, mse_cost_function, k, omega, r)
     boundary_loss_ur_t0, boundary_loss_ui_t0, boundary_loss_v_t0 = compute_analytical_boundary_loss(model, x_bc_t0, t_bc_t0, mse_cost_function, k, omega, r)
-    boundary_loss_ur_t1, boundary_loss_ui_t1, boundary_loss_v_t1 = compute_analytical_boundary_loss(model, x_bc_t1, t_bc_t1, mse_cost_function, k, omega, r)
+   # boundary_loss_ur_t1, boundary_loss_ui_t1, boundary_loss_v_t1 = compute_analytical_boundary_loss(model, x_bc_t1, t_bc_t1, mse_cost_function, k, omega, r)
     domain_loss_ur_t, domain_loss_ui_t, domain_loss_v_t = compute_analytical_boundary_loss(model, x_dom, t_dom, mse_cost_function, k, omega, r)
    
     # Total loss 
-    loss_ur = lambda_*(physics_loss_ur) + (1-lambda_)*(boundary_loss_ur_x0 + boundary_loss_ur_t0 + domain_loss_ur_t )
-    loss_ui = lambda_*(physics_loss_ui) + (1-lambda_)*(boundary_loss_ui_x0 + boundary_loss_ui_t0 + domain_loss_ui_t ) 
-    loss_v = lambda_*(physics_loss_v) + (1-lambda_)*(boundary_loss_v_x0 + boundary_loss_v_t0 + domain_loss_v_t )
+    loss_ur = lambda_*(physics_loss_ur) + (1-lambda_)*( boundary_loss_ur_x0 + boundary_loss_ur_t0 + domain_loss_ur_t ) + (1-lambda_)*0.01*( boundary_loss_ur_x1)
+    loss_ui = lambda_*(physics_loss_ui) + (1-lambda_)*( boundary_loss_ui_x0 + boundary_loss_ui_t0 + domain_loss_ui_t ) + (1-lambda_)*0.01*( boundary_loss_ui_x1)
+    loss_v = gamma*(physics_loss_v) + (1-gamma)*( boundary_loss_v_x0 + boundary_loss_v_t0 + domain_loss_v_t ) + (1-lambda_)*0.01*( boundary_loss_v_x1)
     total_loss = loss_ur + loss_ui + loss_v
     
     total_loss.backward()
@@ -226,8 +242,8 @@ for epoch in tqdm(range(num_epochs),
     if epoch % 1000 == 0:
         beta += 0.05
         beta = np.minimum(1, beta)
-        print(f'Epoch {epoch}, Beta {beta:.2f}, Loss U (real): {loss_ur.item()}, Loss U (imag): {loss_ui.item()}, Loss V: {loss_v.item()}')
-        model_filename = os.path.join(model_save_path, f'C_HIGGS_epoch_{epoch}_omega_{omega}.pth')
+        print(f'Epoch {epoch}, Factor {factor}, Loss U (real): {loss_ur.item():.4f}, Loss U (imag): {loss_ui.item():.4f}, Loss V: {loss_v.item():.4f}')
+        model_filename = os.path.join(model_save_path, f'C_HIGGS_epoch_st_{epoch}_omega_{omega}.pth')
         torch.save(model.state_dict(), model_filename)
         
         df_losses = pd.DataFrame(losses)
@@ -236,10 +252,10 @@ for epoch in tqdm(range(num_epochs),
     
     if total_loss.item() < 1e-3:
         print(f'Stopping early at epoch {epoch} due to reaching target loss.')
-        model_filename = os.path.join(model_save_path, f'C_HIGGS_epoch_{epoch}.pth')
+        model_filename = os.path.join(model_save_path, f'C_HIGGS_epoch_st_{epoch}.pth')
         torch.save(model.state_dict(), model_filename)
         break
     
-model_filename = os.path.join(model_save_path, f'C_HIGGS_omega_{omega}.pth')
+model_filename = os.path.join(model_save_path, f'C_HIGGS_second_train_omega_{omega}.pth')
 torch.save(model.state_dict(), model_filename)
 
