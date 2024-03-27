@@ -111,6 +111,11 @@ $$
 where 
 $k = 0.5, \omega = 3 , \alpha = 2, c = 2, r = 1.1$
 
+![Alt text for the img](results/chiggs_model_comparison_3d.png)
+
+![Alt text for the img](results/heatmaps_chiggs.png)
+
+
 ## Installation
 
 For nixpkgs users use the following 
