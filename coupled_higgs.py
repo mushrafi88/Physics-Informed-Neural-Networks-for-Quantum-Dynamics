@@ -30,7 +30,7 @@ def init_fixed_frequency_matrix(size, scale=1.0):
 
 class FourierFeatureNN(nn.Module):
     def __init__(self, input_dim=1, shared_units=128, output_dim=3, layers_per_path=2, scale=1.0, 
-                 activation=nn.Tanh, path_neurons=None, ffn_neurons=None, device=device):
+                 activation=nn.Tanh, path_neurons=None, ffn_neurons=None, device='cpu'):
         super(FourierFeatureNN, self).__init__()
         self.Bx = init_fixed_frequency_matrix((input_dim, shared_units // 2), scale=scale).to(device)
         self.Bt = init_fixed_frequency_matrix((input_dim, shared_units // 2), scale=scale).to(device)
@@ -136,7 +136,7 @@ def compute_analytical_boundary_loss(model, x, t, mse_cost_function, k, omega, r
     
     return boundary_loss_ur, boundary_loss_ui, boundary_loss_v
 
-def compute_physics_loss(model, x, t, mse_cost_function):
+def compute_physics_loss(model, x, t, device, mse_cost_function):
     x.requires_grad = True
     t.requires_grad = True
     pred_u_r, pred_u_i, pred_v = model(x, t)
@@ -190,7 +190,7 @@ def seq2seq_training(model, model_save_path, mse_cost_function, device, num_epoc
 
         optimizer.zero_grad()
 
-        physics_loss_ur, physics_loss_ui, physics_loss_v = compute_physics_loss(model, x_n, t_n, mse_cost_function)
+        physics_loss_ur, physics_loss_ui, physics_loss_v = compute_physics_loss(model, x_n, t_n, device, mse_cost_function)
         boundary_loss_ur_x0, boundary_loss_ui_x0, boundary_loss_v_x0 = compute_analytical_boundary_loss(model, x_bc_x0, t_bc_x0, mse_cost_function, k, omega, r)
         boundary_loss_ur_x1, boundary_loss_ui_x1, boundary_loss_v_x1 = compute_analytical_boundary_loss(model, x_bc_x1, t_bc_x1, mse_cost_function, k, omega, r)
         boundary_loss_ur_t0, boundary_loss_ui_t0, boundary_loss_v_t0 = compute_analytical_boundary_loss(model, x_bc_t0, t_bc_t0, mse_cost_function, k, omega, r)
@@ -208,9 +208,9 @@ def seq2seq_training(model, model_save_path, mse_cost_function, device, num_epoc
         if epoch % 1000 == 0:
             print(f' Epoch {epoch}, Factor {factor}, Loss U (real): {loss_ur.item():.4f}, Loss U (imag): {loss_ui.item():.4f}, Loss V: {loss_v.item():.4f}')
     
-   model_filename = os.path.join(model_save_path, f'C_HIGGS_first_training.pth')
-   torch.save(model.state_dict(), model_filename)
-   print('COMPLETED Seq2Seq Training')
+    model_filename = os.path.join(model_save_path, f'C_HIGGS_first_training.pth')
+    torch.save(model.state_dict(), model_filename)
+    print('COMPLETED Seq2Seq Training')
 
 def LBFGS_training(model, model_save_path, mse_cost_function, device, num_epochs, lr, num_samples, r, k, omega, gamma):
     print('Starting LBFGS Fine Tuning')
@@ -220,6 +220,17 @@ def LBFGS_training(model, model_save_path, mse_cost_function, device, num_epochs
     optimizer = LBFGS(model.parameters(), lr=1, max_iter=20, max_eval=None, tolerance_grad=1e-07, tolerance_change=1e-09, history_size=100, line_search_fn=None)
     factor = -2
 
+    x_n = (torch.rand(num_samples, 1)*4 + factor ).to(device)  # x in range [-5, -3]
+    t_n = (torch.rand(num_samples, 1)).to(device)   
+    x_dom = (torch.rand(num_samples, 1)*4 + factor ).to(device)
+    t_dom = torch.rand(num_samples, 1).to(device) 
+    x_bc_x0 = (torch.zeros(num_samples, 1)*4 + factor ).to(device)
+    t_bc_x0 = torch.rand(num_samples, 1).to(device)  # Uniformly distributed random values between 0 and 1
+    x_bc_x1 = (torch.zeros(num_samples, 1)*4 - factor ).to(device)
+    t_bc_x1 = torch.rand(num_samples, 1).to(device)  # Uniformly distributed random values between 0 and 1
+    x_bc_t0 = (torch.rand(num_samples, 1)*4 + factor ).to(device)  # Uniformly distributed random values between 0 and 1
+    t_bc_t0 = torch.zeros(num_samples, 1).to(device)
+
     for epoch in tqdm(range(num_epochs),
                   desc='Progress:',  
                   leave=False,  
@@ -227,21 +238,10 @@ def LBFGS_training(model, model_save_path, mse_cost_function, device, num_epochs
                   mininterval=0.1,
                   bar_format='{l_bar} {bar} | {remaining}',  # Only show the bar without any counters
                   colour='blue'): 
-        x_n = (torch.rand(num_samples, 1)*4 + factor ).to(device)  # x in range [-5, -3]
-        t_n = (torch.rand(num_samples, 1)).to(device)   
-        x_dom = (torch.rand(num_samples, 1)*4 + factor ).to(device)
-        t_dom = torch.rand(num_samples, 1).to(device) 
-        x_bc_x0 = (torch.zeros(num_samples, 1)*4 + factor ).to(device)
-        t_bc_x0 = torch.rand(num_samples, 1).to(device)  # Uniformly distributed random values between 0 and 1
-        x_bc_x1 = (torch.zeros(num_samples, 1)*4 - factor ).to(device)
-        t_bc_x1 = torch.rand(num_samples, 1).to(device)  # Uniformly distributed random values between 0 and 1
-        x_bc_t0 = (torch.rand(num_samples, 1)*4 + factor ).to(device)  # Uniformly distributed random values between 0 and 1
-        t_bc_t0 = torch.zeros(num_samples, 1).to(device)
-        
         def closure():
             optimizer.zero_grad()
 
-            physics_loss_ur, physics_loss_ui, physics_loss_v = compute_physics_loss(model, x_n, t_n, mse_cost_function)
+            physics_loss_ur, physics_loss_ui, physics_loss_v = compute_physics_loss(model, x_n, t_n, device, mse_cost_function)
             boundary_loss_ur_x0, boundary_loss_ui_x0, boundary_loss_v_x0 = compute_analytical_boundary_loss(model, x_bc_x0, t_bc_x0, mse_cost_function, k, omega, r)
             boundary_loss_ur_x1, boundary_loss_ui_x1, boundary_loss_v_x1 = compute_analytical_boundary_loss(model, x_bc_x1, t_bc_x1, mse_cost_function, k, omega, r)
             boundary_loss_ur_t0, boundary_loss_ui_t0, boundary_loss_v_t0 = compute_analytical_boundary_loss(model, x_bc_t0, t_bc_t0, mse_cost_function, k, omega, r)
@@ -260,7 +260,7 @@ def LBFGS_training(model, model_save_path, mse_cost_function, device, num_epochs
         optimizer.step(closure)
         if epoch % 10 == 0:
             current_loss = closure()  # Optionally recompute to print
-            print(f'Epoch {epoch}, Loss: {current_loss.item()}') 
+            print(f' Epoch {epoch}, Loss: {current_loss.item()}') 
 
     model_filename = os.path.join(model_save_path, f'C_HIGGS_second_training.pth')
     torch.save(model.state_dict(), model_filename)
@@ -279,7 +279,7 @@ def main():
     model = FourierFeatureNN(input_dim=1, shared_units=128, output_dim=3, layers_per_path=2, scale=1.0, 
                          activation=nn.Tanh, path_neurons=[128, 128, 128, 128], ffn_neurons=[128, 128, 128], device=device).to(device)
     print(model)
-    num_epochs_lbfgs = 200  # Number of training epochs
+    num_epochs_lbfgs = 50  # Number of training epochs
     num_samples_lbfgs = 1000*5 # Number of samples for training
     num_epochs_sq = 36000
     num_samples_sq = 1000
@@ -288,7 +288,6 @@ def main():
     omega = 3 
     k = 0.5
     gamma = 1e-3
-    factor = -2
     model_save_path = 'model_weights' 
     mse_cost_function = torch.nn.MSELoss()
     os.makedirs(model_save_path, exist_ok=True)
