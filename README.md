@@ -103,17 +103,9 @@ solutions
 $$
 u_1(x, t) = ir e^{ir(\omega x + t)} \sqrt{1 + \omega^2} \tanh\left(\frac{r(k + x + \omega t)}{\sqrt{2}}\right)
 $$
+
 $$
 v_1(x, t) = r^2 \tanh^2\left(\frac{r(k + x + \omega t)}{\sqrt{2}}\right)
-$$
-
-for $t = 0$
-
-$$
-u_1(x, 0) = ir e^{ir \omega x} \sqrt{1 + \omega^2} \tanh\left(\frac{r(k + x)}{\sqrt{2}}\right)
-$$
-$$
-v_1(x, 0) = r^2 \tanh^2\left(\frac{r(k + x)}{\sqrt{2}}\right)
 $$
 
 where 
