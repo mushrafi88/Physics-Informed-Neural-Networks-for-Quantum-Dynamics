@@ -16,17 +16,6 @@ import warnings
 warnings.filterwarnings('ignore', category=UserWarning)
 warnings.filterwarnings('ignore', category=FutureWarning)
 
-
-def fourier_features(x, B):
-    x_transformed = torch.matmul(x, B)
-    return torch.cat([torch.sin(x_transformed), torch.cos(x_transformed) ], dim=-1)
-
-def init_fixed_frequency_matrix(size, scale=1.0):
-    num_elements = size[0] * size[1]
-    lin_space = torch.linspace(-scale, scale, steps=num_elements)
-    B = lin_space.view(size).float()
-    return B
-
 def fourier_features(x, B):
     x_transformed = torch.matmul(x, B)
     return torch.cat([torch.sin(x_transformed), torch.cos(x_transformed)], dim=-1)
@@ -132,14 +121,23 @@ def real_v1(x, t, k, omega, r):
     result = (r * torch.tanh((r * (k + x + omega * t)) / torch.sqrt(torch.tensor(2.0))))**2
     return result
 
+def compute_analytical_boundary_loss(model, x, t, mse_cost_function, k, omega, r):
+    pred_u_r, pred_u_i, pred_v = model(x, t)
+
+    real_u1_val = real_u1(x, t, k, omega, r)
+    imag_u1_val = imag_u1(x, t, k, omega, r)
+    real_v1_val = real_v1(x, t, k, omega, r)
+ 
+    boundary_loss_ur = mse_cost_function(pred_u_r, real_u1_val)
+    boundary_loss_ui = mse_cost_function(pred_u_i, imag_u1_val)
+    boundary_loss_v = mse_cost_function(pred_v, real_v1_val)
+
+    return boundary_loss_ur , boundary_loss_ui, boundary_loss_v
+
 def compute_physics_loss(model, x, t, u_r0, u_i0, v0, y1, device, mse_cost_function, k, omega, r):
     x.requires_grad = True
     t.requires_grad = True
-    u_r0.requires_grad = True 
-    u_i0.requires_grad = True
-    v0.requires_grad = True 
-    y1.requires_grad = True 
-
+    
     pred_u_r, pred_u_i, pred_v = model(x, t)
     u_r = u_r0 + y1*pred_u_r 
     u_i = u_i0 + y1*pred_u_i
@@ -163,7 +161,11 @@ def compute_physics_loss(model, x, t, u_r0, u_i0, v0, y1, device, mse_cost_funct
 def cyclic_iterator(items):
     return cycle(items)
 
-def plot_predictions(epoch, model, device, k, omega, r, image_save_path):
+def plot_predictions(epoch, model, model_save_path, device, k, omega, r, image_save_path):
+    model_state = torch.load(os.path.join(model_save_path, f'C_HIGGS_first_training_epoch_{epoch}.pth'), map_location=device)
+    model = FourierFeatureNN(input_dim=1, shared_units=128, output_dim=3, layers_per_path=2, scale=1.0, 
+                         activation=nn.Tanh, path_neurons=[128, 128, 128, 128], ffn_neurons=[128, 128, 128], device=device).to(device)  
+    model.load_state_dict(model_state)
     model.eval()  # Set the model to evaluation mode
     x = torch.linspace(0, 1, 300)
     t = torch.linspace(0, 1, 300)
@@ -173,13 +175,12 @@ def plot_predictions(epoch, model, device, k, omega, r, image_save_path):
     x0 = torch.zeros_like(X_flat).to(device)
     x1 = torch.ones_like(X_flat).to(device)
     
-    
     with torch.no_grad():
         pred_u_r, pred_u_i, pred_v = model(X_flat, T_flat) 
     
     pred_u_r = (1-X_flat)*real_u1(x0, T_flat, k, omega, r) + X_flat*real_u1(x1, T_flat, k, omega, r) + X_flat*(1-X_flat)*pred_u_r 
-    pred_u_i = (1-X_flat)*imag_u1(x0, T_flat, k, omega, r) + (1-X_flat)*imag_u1(x1, T_flat, k, omega, r) + X_flat*(1-X_flat)*pred_u_i
-    pred_v = (1-X_flat)*real_v1(x0, T_flat, k, omega, r) + (1-X_flat)*real_v1(x1, T_flat, k, omega, r) + X_flat*(1-X_flat)*pred_v
+    pred_u_i = (1-X_flat)*imag_u1(x0, T_flat, k, omega, r) + X_flat*imag_u1(x1, T_flat, k, omega, r) + X_flat*(1-X_flat)*pred_u_i
+    pred_v = (1-X_flat)*real_v1(x0, T_flat, k, omega, r) + X_flat*real_v1(x1, T_flat, k, omega, r) + X_flat*(1-X_flat)*pred_v
   
     pred_u_r = pred_u_r.cpu().reshape(X.shape).numpy()
     pred_u_i = pred_u_i.cpu().reshape(X.shape).numpy()
@@ -234,7 +235,8 @@ def seq2seq_training(model, model_save_path, image_save_path, mse_cost_function,
     u_r0 = y*real_u1(x0, t, k, omega, r) + x*real_u1(x1, t, k, omega, r)
     u_i0 = y*imag_u1(x0, t, k, omega, r) + x*imag_u1(x1, t, k, omega, r)
     v0 = y*real_v1(x0,t, k, omega, r) + x*real_v1(x1, t, k, omega, r)     
-    
+    x_dom = torch.rand(num_samples, 1).to(device)
+    t_dom = torch.rand(num_samples, 1).to(device) 
     for epoch in tqdm(range(num_epochs),
                   desc='Progress:',  
                   leave=False,  
@@ -246,17 +248,17 @@ def seq2seq_training(model, model_save_path, image_save_path, mse_cost_function,
         model.train()
         optimizer.zero_grad()
 
-        loss_ur, loss_ui, loss_v = compute_physics_loss(model, x, t, u_r0, u_i0, v0, y1, device, mse_cost_function, k, omega, r)
-        total_loss = loss_ur + loss_ui + loss_v
+        physics_loss_ur, physics_loss_ui, physics_loss_v = compute_physics_loss(model, x, t, u_r0, u_i0, v0, y1, device, mse_cost_function, k, omega, r)
+        domain_loss_ur_t, domain_loss_ui_t, domain_loss_v_t = compute_analytical_boundary_loss(model, x_dom, t_dom, mse_cost_function, k, omega, r)
+        total_loss = lr*(physics_loss_ur + physics_loss_ui + physics_loss_v) + (1-lr)*(domain_loss_ur_t + domain_loss_ui_t + domain_loss_v_t)
         total_loss.backward()
         optimizer.step()
 
         if epoch % 1000 == 0:
-            print(f' Epoch {epoch}, Factor {factor}, Loss U (real): {loss_ur.item()}, Loss U (imag): {loss_ui.item()}, Loss V: {loss_v.item()}')
-            plot_predictions(epoch, model, device, k, omega, r, image_save_path)
-            
-    model_filename = os.path.join(model_save_path, f'C_HIGGS_first_training.pth')
-    torch.save(model.state_dict(), model_filename)
+            print(f' Epoch {epoch}, Factor {factor}, Total Loss {total_loss.item()}')
+            model_filename = os.path.join(model_save_path, f'C_HIGGS_first_training_epoch_{epoch}.pth')
+            torch.save(model.state_dict(), model_filename)
+            plot_predictions(epoch, model, model_save_path, device, k, omega, r, image_save_path)
     print('COMPLETED Seq2Seq Training')
 
 
