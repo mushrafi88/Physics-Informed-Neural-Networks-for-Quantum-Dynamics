@@ -3,3 +3,4 @@
 **/.stfolder
 test/model_weights_test
 test/results_test
+.direnv
