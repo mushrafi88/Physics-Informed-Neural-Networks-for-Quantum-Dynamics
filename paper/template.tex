@@ -1,0 +1,95 @@
+\documentclass{article}
+
+\usepackage{arxiv}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{cleveref}       % smart cross-referencing
+\usepackage{lipsum}         % Can be removed after putting your text content
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{doi}
+
+\title{Computational Modeling of Coupled Higgs Equations using Physics Informed Neural Networks }
+
+% Here you can change the date presented in the paper title
+%\date{September 9, 1985}
+% Or remove it
+%\date{}
+
+\newif\ifuniqueAffiliation
+% Comment to use multiple affiliations variant of author block 
+% \uniqueAffiliationtrue
+
+\ifuniqueAffiliation % Standard variant of author block
+\author{ \href{https://orcid.org/0009-0003-2515-9464}{\includegraphics[scale=0.06]{orcid.pdf}\hspace{1mm}Mushrafi Munim Sushmit} \\
+	Department of Physics\\
+	University of Dhaka\\
+	Dhaka 1000, Bangladesh \\
+	\texttt{mushrafi88@gmail.com} \\
+	%% examples of more authors
+	\And
+	\href{https://orcid.org/0000-0002-9231-4167}{\includegraphics[scale=0.06]{orcid.pdf}\hspace{1mm}Golam Dastegir Al-Quaderi } \\
+	Department of Physics\\
+	University of Dhaka\\
+	Dhaka 1000, Bangladesh \\
+	\texttt{dastegir@du.ac.bd} \\ 
+}
+\else
+% Multiple affiliations variant of author block
+
+\usepackage{authblk}
+\renewcommand\Authfont{\bfseries}
+\setlength{\affilsep}{0em}
+% box is needed for correct spacing with authblk
+\newbox{\orcid}\sbox{\orcid}{\includegraphics[scale=0.06]{orcid.pdf}} 
+\author[1]{%
+	\href{https://orcid.org/0009-0003-2515-9464}{\usebox{\orcid}\hspace{1mm}Mushrafi Munim Sushmit\thanks{\texttt{mushrafi88@gmail.com}}}%
+}
+\author[2]{%
+	\href{https://orcid.org/0000-0002-9231-4167}{\usebox{\orcid}\hspace{1mm}Golam Dastegir Al-Quaderi\thanks{\texttt{dastegir@du.ac.bd}}}%
+}
+\affil[1,2]{Department of Physics, University of Dhaka, Dhaka 1000, Bangladesh}
+\fi
+
+
+% Uncomment to override  the `A preprint' in the header
+\renewcommand{\headeright}{Original Research}
+\renewcommand{\undertitle}{Original Research}
+\renewcommand{\shorttitle}{\textit{M.M. Sushmit \& G.D. Al-Quaderi}}
+
+%%% Add PDF metadata to help others organize their library
+%%% Once the PDF is generated, you can check the metadata with
+%%% $ pdfinfo template.pdf
+\hypersetup{
+pdftitle={A template for the arxiv style},
+pdfsubject={q-bio.NC, q-bio.QM},
+pdfauthor={Mushrafi Munim Sushmit, Golam Dastegir Al-Quaderi},
+pdfkeywords={First keyword, Second keyword, More},
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	The abstract for PINN 
+\end{abstract}
+
+
+% keywords can be removed
+\keywords{PINNS \and Coupled Higgs \and PDE }
+ 
+
+\section{Introduction}
+
+
+\bibliographystyle{unsrtnat}
+\bibliography{references} 
+
+\end{document}
