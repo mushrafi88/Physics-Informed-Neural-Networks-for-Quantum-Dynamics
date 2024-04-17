@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/nixos.org) (preloaded format=pdflatex 1980.1.1)  17 APR 2024 16:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/nixos.org) (preloaded format=pdflatex 1980.1.1)  17 APR 2024 23:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -294,29 +294,29 @@ Package: authblk 2001/02/27 1.3 (PWD)
 <orcid.pdf, id=1, 102.3825pt x 102.3825pt>
 File: orcid.pdf Graphic file (type pdf)
 <use orcid.pdf>
-Package pdftex.def Info: orcid.pdf  used on input line 51.
+Package pdftex.def Info: orcid.pdf  used on input line 30.
 (pdftex.def)             Requested size: 6.14267pt x 6.14267pt.
  (./template.aux)
 \openout1 = `template.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -384,24 +384,24 @@ LaTeX Font Info:    ... okay on input line 77.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 77.
+Package hyperref Info: Link coloring OFF on input line 56.
 (./template.out) (./template.out)
 \@outlinefile=\write3
 \openout3 = `template.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 77.
-Package microtype Info: Applying patch `item' on input line 77.
-Package microtype Info: Applying patch `toc' on input line 77.
-Package microtype Info: Applying patch `eqnum' on input line 77.
-Package microtype Info: Applying patch `footnote' on input line 77.
-Package microtype Info: Applying patch `verbatim' on input line 77.
+LaTeX Info: Redefining \microtypecontext on input line 56.
+Package microtype Info: Applying patch `item' on input line 56.
+Package microtype Info: Applying patch `toc' on input line 56.
+Package microtype Info: Applying patch `eqnum' on input line 56.
+Package microtype Info: Applying patch `footnote' on input line 56.
+Package microtype Info: Applying patch `verbatim' on input line 56.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 77.
+LaTeX Info: Redefining \showhyphens on input line 56.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -428,23 +428,23 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 )) (/nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 78.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 57.
  (/nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 78.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 57.
  (/nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 78.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 57.
  (/nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 78.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 57.
  (/nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
@@ -452,11 +452,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- (./template.bbl
-
-Package natbib Warning: Empty `thebibliography' environment on input line 8.
-
-) [1
+ [1
 
 
 {/nix/store/a5bipbzrq34xnqy9p46raa4wagvchk43-texlive-combined-full-2023-final/share/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/enc/dvips/base/8r.enc}{/nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./orcid.pdf>] (./template.aux)
@@ -465,21 +461,21 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `template.out' has not changed.
-(rerunfilecheck)             Checksum: 9814C2D956916ADB9290ECA4E25C967A;103.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 14245 strings out of 474116
- 249222 string characters out of 5717523
- 1931187 words of memory out of 5000000
- 36321 multiletter control sequences out of 15000+600000
- 603841 words of font info for 123 fonts, out of 8000000 for 9000
+ 14259 strings out of 474116
+ 249226 string characters out of 5717523
+ 1937187 words of memory out of 5000000
+ 36305 multiletter control sequences out of 15000+600000
+ 605465 words of font info for 147 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,6n,93p,1005b,448s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,6n,93p,2456b,447s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/type1/public/cm-super/sftt0900.pfb></nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/type1/urw/times/utmb8a.pfb></nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/type1/urw/times/utmbi8a.pfb></nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on template.pdf (1 page, 88847 bytes).
+Output written on template.pdf (1 page, 93290 bytes).
 PDF statistics:
- 58 PDF objects out of 1000 (max. 8388607)
- 40 compressed objects within 1 object stream
- 4 named destinations out of 1000 (max. 500000)
- 48142 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 52 PDF objects out of 1000 (max. 8388607)
+ 34 compressed objects within 1 object stream
+ 2 named destinations out of 1000 (max. 500000)
+ 48134 words of extra memory for PDF output out of 51595 (max. 10000000)
 

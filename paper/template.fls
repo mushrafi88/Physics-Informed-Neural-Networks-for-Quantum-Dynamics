@@ -212,9 +212,6 @@ INPUT /nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-fin
 INPUT /nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/tfm/adobe/times/ptmb8t.tfm
 INPUT /nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/tfm/adobe/times/ptmbc8t.tfm
 INPUT /nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/tfm/adobe/times/ptmbi8t.tfm
-INPUT ./template.bbl
-INPUT ./template.bbl
-INPUT template.bbl
 INPUT /nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/vf/adobe/times/ptmrc8t.vf
 INPUT /nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT /nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/tfm/adobe/times/ptmr8r.tfm
@@ -234,7 +231,6 @@ INPUT /nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-fin
 INPUT /nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT /nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/vf/adobe/times/ptmbi8t.vf
 INPUT /nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/tfm/adobe/times/ptmbi8r.tfm
-INPUT /nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/vf/adobe/times/ptmb8t.vf
 INPUT /nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/fonts/enc/dvips/cm-super/cm-super-t1.enc
 INPUT template.aux
 INPUT ./template.out

@@ -1,13 +1,5 @@
 # Fdb version 4
-["bibtex template"] 1713349802.06647 "template.aux" "template.bbl" "template" 1713350024.41468 0
-  "./references.bib" 1713346015.15709 1034 64385ee9e7ff2a96c7017f444f65a8e1 ""
-  "/nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/bibtex/bst/natbib/unsrtnat.bst" 1 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
-  "template.aux" 1713350024.09594 312 81ef8d21a780804534145b93c5a938d6 "pdflatex"
-  (generated)
-  "template.bbl"
-  "template.blg"
-  (rewritten before read)
-["pdflatex"] 1713350023.10922 "template.tex" "template.pdf" "template" 1713350024.41498 0
+["pdflatex"] 1713375671.38029 "template.tex" "template.pdf" "template" 1713375672.37862 0
   "/nix/store/a5bipbzrq34xnqy9p46raa4wagvchk43-texlive-combined-full-2023-final/share/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1 5467763 765bcb92b27a0d71a87576f6c0b4e95a ""
   "/nix/store/a5bipbzrq34xnqy9p46raa4wagvchk43-texlive-combined-full-2023-final/share/texmf-var/web2c/pdftex/pdflatex.fmt" 1 8222018 f612d65c649a411ea361928634694c68 ""
   "/nix/store/a5bipbzrq34xnqy9p46raa4wagvchk43-texlive-combined-full-2023-final/share/texmf-var/web2c/texmf.cnf" 1 43155 66ffdd378142229fe4dcc7e9c3f7151e ""
@@ -121,10 +113,9 @@
   "/nix/store/hcsys9ywg5zijynzfda0qwx7k57467d5-texlive-combined-full-2023-final-texmfdist/tex/latex/url/url.sty" 1 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "arxiv.sty" 1713346015.15709 7642 824ef14f3548279d54b419cf5e0f3098 ""
   "orcid.pdf" 1713346317.60653 12397 91d5d508c0f091a7cee0cca88f1680c0 ""
-  "template.aux" 1713350024.09594 312 81ef8d21a780804534145b93c5a938d6 "pdflatex"
-  "template.bbl" 1713349802.23655 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex template"
-  "template.out" 1713350024.09594 103 9814c2d956916adb9290eca4e25c967a "pdflatex"
-  "template.tex" 1713350021.5239 3018 c7883aa98576e5f44b0fbe8f6a710091 ""
+  "template.aux" 1713375672.25649 162 55205a9e8a8eca30d36afb389b0617bf "pdflatex"
+  "template.out" 1713375672.03249 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "template.tex" 1713375671.03647 4784 2d76011e653c7971add09193f4a8c67f ""
   (generated)
   "template.aux"
   "template.log"

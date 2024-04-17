@@ -16,33 +16,12 @@
 \usepackage{natbib}
 \usepackage{doi}
 
-\title{Computational Modeling of Coupled Higgs Equations using Physics Informed Neural Networks }
+\title{Computational Modeling of Coupled Higgs Equations using Physics Informed Neural Networks}
 
 % Here you can change the date presented in the paper title
 %\date{September 9, 1985}
 % Or remove it
 %\date{}
-
-\newif\ifuniqueAffiliation
-% Comment to use multiple affiliations variant of author block 
-% \uniqueAffiliationtrue
-
-\ifuniqueAffiliation % Standard variant of author block
-\author{ \href{https://orcid.org/0009-0003-2515-9464}{\includegraphics[scale=0.06]{orcid.pdf}\hspace{1mm}Mushrafi Munim Sushmit} \\
-	Department of Physics\\
-	University of Dhaka\\
-	Dhaka 1000, Bangladesh \\
-	\texttt{mushrafi88@gmail.com} \\
-	%% examples of more authors
-	\And
-	\href{https://orcid.org/0000-0002-9231-4167}{\includegraphics[scale=0.06]{orcid.pdf}\hspace{1mm}Golam Dastegir Al-Quaderi } \\
-	Department of Physics\\
-	University of Dhaka\\
-	Dhaka 1000, Bangladesh \\
-	\texttt{dastegir@du.ac.bd} \\ 
-}
-\else
-% Multiple affiliations variant of author block
 
 \usepackage{authblk}
 \renewcommand\Authfont{\bfseries}
@@ -56,7 +35,7 @@
 	\href{https://orcid.org/0000-0002-9231-4167}{\usebox{\orcid}\hspace{1mm}Golam Dastegir Al-Quaderi\thanks{\texttt{dastegir@du.ac.bd}}}%
 }
 \affil[1,2]{Department of Physics, University of Dhaka, Dhaka 1000, Bangladesh}
-\fi
+% \fi
 
 
 % Uncomment to override  the `A preprint' in the header
@@ -78,18 +57,19 @@ pdfkeywords={First keyword, Second keyword, More},
 \maketitle
 
 \begin{abstract}
-	The abstract for PINN 
+% 
+In the recent years, Physics-Informed Neural Networks (PINNs) have brought about a paradigm shift in solving differential equations. PINNS have demonstrated success in approximating solutions for partial differential equations using only the differential equations and boundary conditions. However, challenges remain for higher-order partial differential equations, where even data-driven PINNs struggle to achieve acceptable error rates. Research on PINNs has primarily focused on single differential equations, leaving coupled differential equations significantly underexplored, with most literature addressing examples like the Korteweg–De Vries (KdV) and Non-Linear Schrödinger equations as primary case studies. In this paper, the authors present a data-driven approach for modeling the coupled Higgs equations. This complex equation has two solutions: one with real and imaginary components and the other being a scalar field. To address the unique challenges of the coupled Higgs equations, the authors propose modifications to the existing Fourier Neural Network architecture and a specialized boundary loss function. This research proposes to map them separately through a Fourier feature space, offering a distinct approach from traditional conflation of time and space variable. Each mapped variable then undergoes processing by a distinct feed-forward network, and the outputs are combined using a dot product. This result is then passed through another feed-forward layer for the final output. This study also introduces a novel training methodology inspired by the classic deep learning technique of sequence-to-sequence learning. The training region is partitioned into four equally spaced sub-regions, which are initially trained separately using the ADAM optimizer.  Following this, the model is trained a second time using the L-BFGS optimizer over the entire region, leading to significantly improved convergence and faster convergence rates. This study also refines the loss function. Rather than solely relying on physics-informed and data-driven losses, the authors employ a weighted loss function that emphasizes boundary conditions while scaling down the physics-informed loss. These combined techniques facilitate rapid model convergence. Results demonstrate that the proposed techniques help the model achieve performance on par with analytical predictions, with an accuracy of more than 90\%.
+%. 
 \end{abstract}
 
-
 % keywords can be removed
-\keywords{PINNS \and Coupled Higgs \and PDE }
+\keywords{PINNS \and Coupled Higgs Equations \and Partial Differential Equations \and Fourier Neural Networks \and Weighted Loss Function }
  
 
-\section{Introduction}
+% \section{Introduction}
 
 
-\bibliographystyle{unsrtnat}
-\bibliography{references} 
+% \bibliographystyle{unsrtnat}
+% \bibliography{references} 
 
 \end{document}
