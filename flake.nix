@@ -69,7 +69,7 @@
             micromamba create --yes -q -n pytorch
             micromamba activate pytorch
             micromamba install pytorch torchvision torchaudio pytorch-cuda=11.8 jupyter ipympl deepxde -c pytorch -c nvidia -c conda-forge
-            pip install matplotlib pandas seaborn scikit-learn tqdm catppuccin-jupyterlab neurodiffeq 
+            pip install matplotlib pandas seaborn scikit-learn tqdm catppuccin-jupyterlab neurodiffeq plotly kaleido
             #jupyter lab
           fi
         '';

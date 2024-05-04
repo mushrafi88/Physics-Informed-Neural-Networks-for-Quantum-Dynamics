@@ -17,7 +17,7 @@ LINENO='76'
 MACHTYPE='x86_64-pc-linux-gnu'
 NIX_BUILD_CORES='4'
 export NIX_BUILD_CORES
-NIX_CFLAGS_COMPILE=' -frandom-seed=wp6pa0kg5x'
+NIX_CFLAGS_COMPILE=' -frandom-seed=d5vspixcd0'
 export NIX_CFLAGS_COMPILE
 NIX_ENFORCE_NO_NATIVE='1'
 export NIX_ENFORCE_NO_NATIVE
@@ -143,7 +143,7 @@ ignored=(/nix /dev /proc /etc )
 ro_mounts=()
 symlinks=()
 etc_ignored=()
-for i in /nix/store/g6axvzcxq7krzwas33xzr7vkgjxsvvpp-conda-fhs/*; do
+for i in /nix/store/i08anfdiz4i6scvs318vikp2h28xqgpc-conda-fhs/*; do
   path="/${i##*/}"
   if [[ $path == '\''/etc'\'' ]]; then
     :
@@ -156,8 +156,8 @@ for i in /nix/store/g6axvzcxq7krzwas33xzr7vkgjxsvvpp-conda-fhs/*; do
   fi
 done
 
-if [[ -d /nix/store/g6axvzcxq7krzwas33xzr7vkgjxsvvpp-conda-fhs/etc ]]; then
-  for i in /nix/store/g6axvzcxq7krzwas33xzr7vkgjxsvvpp-conda-fhs/etc/*; do
+if [[ -d /nix/store/i08anfdiz4i6scvs318vikp2h28xqgpc-conda-fhs/etc ]]; then
+  for i in /nix/store/i08anfdiz4i6scvs318vikp2h28xqgpc-conda-fhs/etc/*; do
     path="/${i##*/}"
     # NOTE: we'\''re binding /etc/fonts and /etc/ssl/certs from the host so we
     # don'\''t want to override it with a path from the FHS environment.
